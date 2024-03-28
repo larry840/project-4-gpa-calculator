@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="styles/style.css" />
-        <title>GPA成績計算</title>
+        <title>成績計算網站</title>
         <link
             rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+            integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap"
             rel="stylesheet"
         />
         <link rel="stylesheet" href="./styles/style.css" />
     </head>
     <body>
-        <!-- 開場動畫 -->
+        <!-- 開場動畫
         <section class="animation-wrapper">
             <section class="animation">
                 <div class="hero">
@@ -29,7 +29,7 @@
                 </div>
             </section>
             <div class="slider"></div>
-        </section>
+        </section> -->
 
         <header>
             <nav>
@@ -44,6 +44,7 @@
         <main>
             <section class="main-part">
                 <h1>Grade Input Form</h1>
+
                 <div class="buttons">
                     <button class="btn sort-descending">降序排序</button>
                     <button class="btn sort-ascending">升序排序</button>
@@ -57,20 +58,20 @@
                                 placeholder="class category"
                                 class="class-type"
                                 list="opt"
-                            />
-                            <input
+                            /><!--
+              --><input
                                 type="text"
                                 placeholder="class number"
                                 class="class-number"
-                            />
-                            <input
+                            /><!--
+              --><input
                                 type="number"
                                 placeholder="credits"
                                 min="0"
                                 max="6"
                                 class="class-credit"
-                            />
-                            <select name="select" class="select">
+                            /><!--
+              --><select name="select" class="select">
                                 <option value=""></option>
                                 <option value="A">A</option>
                                 <option value="A-">A-</option>
@@ -83,9 +84,9 @@
                                 <option value="D+">D+</option>
                                 <option value="D">D</option>
                                 <option value="D-">D-</option>
-                                <option value="F">F</option>
-                            </select>
-                            <button class="trash-button">
+                                <option value="F">F</option></select
+                            ><!--
+              --><button class="trash-button">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -97,20 +98,20 @@
                                 placeholder="class category"
                                 class="class-type"
                                 list="opt"
-                            />
-                            <input
+                            /><!--
+              --><input
                                 type="text"
                                 placeholder="class number"
                                 class="class-number"
-                            />
-                            <input
+                            /><!--
+              --><input
                                 type="number"
                                 placeholder="credits"
                                 min="0"
                                 max="6"
                                 class="class-credit"
-                            />
-                            <select name="select" class="select">
+                            /><!--
+              --><select name="select" class="select">
                                 <option value=""></option>
                                 <option value="A">A</option>
                                 <option value="A-">A-</option>
@@ -123,9 +124,9 @@
                                 <option value="D+">D+</option>
                                 <option value="D">D</option>
                                 <option value="D-">D-</option>
-                                <option value="F">F</option>
-                            </select>
-                            <button class="trash-button">
+                                <option value="F">F</option></select
+                            ><!--
+              --><button class="trash-button">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -137,20 +138,20 @@
                                 placeholder="class category"
                                 class="class-type"
                                 list="opt"
-                            />
-                            <input
+                            /><!--
+              --><input
                                 type="text"
                                 placeholder="class number"
                                 class="class-number"
-                            />
-                            <input
+                            /><!--
+              --><input
                                 type="number"
                                 placeholder="credits"
                                 min="0"
                                 max="6"
                                 class="class-credit"
-                            />
-                            <select name="select" class="select">
+                            /><!--
+              --><select name="select" class="select">
                                 <option value=""></option>
                                 <option value="A">A</option>
                                 <option value="A-">A-</option>
@@ -163,9 +164,9 @@
                                 <option value="D+">D+</option>
                                 <option value="D">D</option>
                                 <option value="D-">D-</option>
-                                <option value="F">F</option>
-                            </select>
-                            <button class="trash-button">
+                                <option value="F">F</option></select
+                            ><!--
+              --><button class="trash-button">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -177,11 +178,11 @@
                 </button>
 
                 <div class="result">
-                    <p id="gap-text">
-                        Your semester<br />
+                    <p id="gpa-text">
+                        Your semester <br />
                         GPA is
                     </p>
-                    <h1 id="result-gpa">0.00</h1>
+                    <h2 id="result-gpa">0.00</h2>
                 </div>
             </section>
         </main>
@@ -248,9 +249,16 @@
             <option value="TONG">Tongan</option>
             <option value="WLNG">World Language</option>
         </datalist>
+
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"
             integrity="sha512-0xrMWUXzEAc+VY7k48pWd5YT6ig03p4KARKxs4Bqxb9atrcn2fV41fWs+YXTKb8lD2sbPAmZMjKENiyzM/Gagw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"
+            integrity="sha512-DkPsH9LzNzZaZjCszwKrooKwgjArJDiEjA5tTgr3YX4E6TYv93ICS8T41yFHJnnSmGpnf0Mvb5NhScYbwvhn2w=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         ></script>
