@@ -1,4 +1,4 @@
-網站連結請點我：
+網站連結請點我：https://project-4-gpa-calculator.vercel.app/
 
 實作以JavaScript為主的GPA計算網站
 <img width="960" alt="image" src="https://github.com/larry840/project-4/assets/137968655/b31e2bac-6bac-43e4-af76-bf1a0005fd3d">
