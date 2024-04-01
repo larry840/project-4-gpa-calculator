@@ -26,44 +26,38 @@ body {
   background-color: #272727;
   color: white;
   font-family: "Baloo 2", cursive;
-  /*
-      section.animation-wrapper {
-          position: fixed;
-          width: 100%;
-          height: 100vh;
-          background-color: white;
-
-          section.animation {
-              margin-top: 10vh;
-              height: 80vh;
-              // border: 5px solid red;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-
-              .hero {
-                  // border: 5px solid green;
-                  width: 100%;
-                  height: 0;
-                  img {
-                      width: 100%;
-                      height: 100%;
-                      object-fit: cover;
-                  }
-              }
-          }
-
-          .slider {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100vh;
-              background: linear-gradient(to right, rgb(144, 144, 144), black);
-              z-index: -1;
-          }
-      }
-  */
+}
+body section.animation-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+}
+body section.animation-wrapper section.animation {
+  margin-top: 10vh;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body section.animation-wrapper section.animation .hero {
+  width: 100%;
+  height: 0;
+}
+body section.animation-wrapper section.animation .hero img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section.animation-wrapper .slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to right, rgb(144, 144, 144), black);
+  z-index: -1;
 }
 body header nav {
   box-shadow: 0 8px 6px -6px black;
@@ -139,12 +133,25 @@ body main section.main-part .result h2#result-gpa {
   font-weight: bold;
 }
 
+.remove {
+  transform: scale(0);
+  transition: 0.3s;
+}
+
 @keyframes scaleUp {
   from {
     transform: scale(0);
   }
   to {
     transform: scale(1);
+  }
+}
+@keyframes scaleDown {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
   }
 }
 @keyframes border_color {

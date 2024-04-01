@@ -1,7 +1,7 @@
 let hero = document.querySelector(".hero");
 let slider = document.querySelector(".slider");
 let animation = document.querySelector("section.animation-wrapper");
-/*
+
 const time_line = new TimelineMax();
 
 // parameter1 是要控制的對象
@@ -35,7 +35,7 @@ time_line
 setTimeout(() => {
     animation.style.pointerEvents = "none";
 }, 2500);
-*/
+
 //為了預防資料填到一半按到enter造成表單送出，所以禁用enter
 
 window.addEventListener("keypress", e => {
@@ -260,12 +260,30 @@ addButton.addEventListener("click", click => {
     newSelect.appendChild(opt12);
     newSelect.appendChild(opt13);
 
+    newSelect.addEventListener("change", e => {
+        setGPA();
+        changeColor(e.target);
+    });
+
     let newButton = document.createElement("button");
     newButton.classList.add("trash-button");
     let newItag = document.createElement("i");
     newItag.classList.add("fas");
     newItag.classList.add("fa-trash");
     newButton.appendChild(newItag);
+
+    newButton.addEventListener("click", e => {
+        // 避免按下button後網頁會重新整理
+        e.preventDefault();
+        e.target.parentElement.parentElement.style.animation = "scaleDown .3s";
+        e.target.parentElement.parentElement.addEventListener(
+            "animationend",
+            e => {
+                e.target.remove();
+                setGPA();
+            }
+        );
+    });
 
     //建立一個元素並不會使其自動顯示在頁面上。這是因為 DOM（文件物件模型）是一種樹狀結構，
     //只有當一個元素被加入到文件的某個節點下時，它才會在瀏覽器中顯示出來。
@@ -280,3 +298,209 @@ addButton.addEventListener("click", click => {
     document.querySelector(".all-inputs").appendChild(newForm);
     newForm.style.animation = "scaleUp .5s ease forwards";
 });
+
+let allTrash = document.querySelectorAll(".trash-button");
+allTrash.forEach(trash => {
+    trash.addEventListener("click", e => {
+        // console.log的方式找到目標，先確定作用是否在自己想要的地方
+        // console.log(e.target.parentElement.parentElement);
+        // 單純remove，但為了要加特效就不用這種方式
+        // e.target.parentElement.parentElement.remove();
+        e.target.parentElement.parentElement.classList.add("remove");
+    });
+});
+allTrash.forEach(trash => {
+    let form = trash.parentElement.parentElement;
+    form.addEventListener("transitionend", e => {
+        e.target.remove();
+        setGPA();
+    });
+});
+
+// 排序演算法 merge sort
+let btn1 = document.querySelector(".sort-descending");
+let btn2 = document.querySelector(".sort-ascending");
+btn1.addEventListener("click", () => {
+    handleSorting("descending");
+});
+btn2.addEventListener("click", () => {
+    handleSorting("ascending");
+});
+function handleSorting(direction) {
+    let graders = document.querySelectorAll(".grader");
+    let objectArray = [];
+
+    for (let i = 0; i < graders.length; i++) {
+        let class_name = graders[i].children[0].value;
+        let class_number = graders[i].children[1].value;
+        let class_credit = graders[i].children[2].value;
+        let class_grade = graders[i].children[3].value;
+        // let class_object = {
+        //     class_name: class_name,
+        //     class_number: class_number,
+        //     class_credit: class_credit,
+        //     class_grade: class_grade,
+        // };
+        if (
+            // 正描述：四個都空，!反過來就是：不要四個都空的=只要有一個以上有填
+            !(
+                class_name == "" &&
+                class_number == "" &&
+                class_credit == "" &&
+                class_grade == ""
+            )
+        ) {
+            let class_object = {
+                class_name,
+                class_number,
+                class_credit,
+                class_grade,
+            };
+            objectArray.push(class_object);
+        }
+    }
+
+    // 取得object array後，可以把成績string換成數字
+    for (let i = 0; i < objectArray.length; i++) {
+        objectArray[i].class_grade_number = convertor(
+            objectArray[i].class_grade
+        );
+    }
+
+    objectArray = mergeSort(objectArray);
+    if (direction == "descending") {
+        objectArray = objectArray.reverse();
+    }
+    // console.log(objectArray);
+
+    //根據object array的內容，來更新網頁
+    let allInputs = document.querySelector(".all-inputs");
+    allInputs.innerHTML = "";
+    for (let i = 0; i < objectArray.length; i++) {
+        allInputs.innerHTML += `<form>
+        <div class="grader">
+            <input
+                type="text"
+                placeholder="class category"
+                class="class-type"
+                list="opt"
+                value=${objectArray[i].class_name}
+            /><!--
+        --><input
+                type="text"
+                placeholder="class number"
+                class="class-number"
+                value=${objectArray[i].class_number}
+            /><!--
+        --><input
+                type="number"
+                placeholder="credits"
+                min="0"
+                max="6"
+                class="class-credit"
+                value=${objectArray[i].class_credit}
+            /><!--
+        --><select name="select" class="select">
+                <option value=""></option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="F">F</option></select
+            ><!--
+        --><button class="trash-button">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+        </form>`;
+    }
+
+    //因為select無法用上面的value一樣的方法
+    //所以要用js直接修改
+    graders = document.querySelectorAll("div.grader");
+    for (let i = 0; i < graders.length; i++) {
+        graders[i].children[3].value = objectArray[i].class_grade;
+    }
+
+    //select事件監聽，排序後顏色轉變用
+    let allSelects = document.querySelectorAll("select");
+    allSelects.forEach(select => {
+        changeColor(select);
+        select.addEventListener("change", e => {
+            setGPA();
+            changeColor(e.target);
+        });
+    });
+
+    //credit事件監聽
+    let allCredits = document.querySelectorAll(".class-credit");
+    allCredits.forEach(credit => {
+        credit.addEventListener("change", () => {
+            setGPA();
+        });
+    });
+
+    //垃圾桶
+    let allTrash = document.querySelectorAll(".trash-button");
+    allTrash.forEach(trash => {
+        trash.addEventListener("click", e => {
+            // 避免按下button後網頁會重新整理
+            e.preventDefault();
+            e.target.parentElement.parentElement.style.animation =
+                "scaleDown .3s";
+            e.target.parentElement.parentElement.addEventListener(
+                "animationend",
+                e => {
+                    e.target.remove();
+                    setGPA();
+                }
+            );
+        });
+    });
+}
+
+function merge(a1, a2) {
+    let result = [];
+    let i = 0;
+    let j = 0;
+
+    while (i < a1.length && j < a2.length) {
+        if (a1[i].class_grade_number > a2[j].class_grade_number) {
+            result.push(a2[j]);
+            j++;
+        } else {
+            result.push(a1[i]);
+            i++;
+        }
+    }
+
+    while (i < a1.length) {
+        result.push(a1[i]);
+        i++;
+    }
+    while (j < a2.length) {
+        result.push(a2[j]);
+        j++;
+    }
+    return result;
+}
+function mergeSort(arr) {
+    if (arr.length == 0) {
+        return;
+    }
+    if (arr.length == 1) {
+        return arr;
+    } else {
+        let middle = Math.floor(arr.length / 2);
+        let left = arr.slice(0, middle);
+        let right = arr.slice(middle, arr.length);
+        return merge(mergeSort(left), mergeSort(right));
+    }
+}

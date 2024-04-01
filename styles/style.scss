@@ -26,7 +26,7 @@ body {
     background-color: #272727;
     color: white;
     font-family: "Baloo 2", cursive;
-    /*
+
     section.animation-wrapper {
         position: fixed;
         width: 100%;
@@ -63,7 +63,7 @@ body {
             z-index: -1;
         }
     }
-*/
+
     header {
         nav {
             box-shadow: 0 8px 6px -6px black;
@@ -151,12 +151,26 @@ body {
     }
 }
 
+.remove {
+    transform: scale(0);
+    transition: 0.3s;
+}
+
 @keyframes scaleUp {
     from {
         transform: scale(0);
     }
     to {
         transform: scale(1);
+    }
+}
+
+@keyframes scaleDown {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(0);
     }
 }
 
